@@ -1,0 +1,30 @@
+read_file <- function(filename) { 
+ # Extract file extension 
+ ext <- tools::file_ext(filename) 
+ 
+ if (ext == "csv") { 
+ data <- read.csv(filename) 
+ } else if (ext == "txt") { 
+ data <- read.table(filename, header = TRUE) 
+ } else if (ext == "xlsx") { 
+ library(readxl) 
+ data <- read_excel(filename) 
+ } else if (ext == "xml") { 
+ library(xml2) 
+ data <- read_xml(filename) 
+ } else { 
+ stop("Unsupported file type!") 
+ } 
+ return(data) 
+} 
+# Example usage 
+write.csv(iris[1:5, ], "iris_sample.csv", row.names = FALSE) 
+result <- read_file("iris_sample.csv") 
+print(result) 
+Output: 
+ Sepal.Length Sepal.Width Petal.Length Petal.Width Species 
+1 5.1 3.5 1.4 0.2 setosa 
+2 4.9 3.0 1.4 0.2 setosa 
+3 4.7 3.2 1.3 0.2 setosa 
+4 4.6 3.1 1.5 0.2 setosa 
+5 5.0 3.6 1.4 0.2 setosa 
