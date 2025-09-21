@@ -1,0 +1,38 @@
+Correlation and Covariance 
+a) Develop a program to find the correlation matrix on iris data. 
+b) Plot the correlation plot on dataset and visualize, giving an overview of relationships among data 
+on iris data. 
+c) Analysis of covariance: variance (ANOVA) if data has categorical variables on iris data. 
+a) Program: 
+# Take only numeric columns from iris 
+num_data <- iris[, 1:4] 
+# Correlation matrix 
+cor_matrix <- cor(num_data) 
+print(cor_matrix) 
+Output: 
+ Sepal.Length Sepal.Width Petal.Length Petal.Width 
+Sepal.Length 1.0000000 -0.1175698 0.8717538 0.8179411 
+Sepal.Width -0.1175698 1.0000000 -0.4284401 -0.3661259 
+Petal.Length 0.8717538 -0.4284401 1.0000000 0.9628654 
+Petal.Width 0.8179411 -0.3661259 0.9628654 1.0000000 
+b) Program: 
+# install.packages("corrplot") # run once if not installed 
+library(corrplot) 
+corrplot(cor_matrix, method = "circle", type = "upper", 
+ tl.col = "black", tl.cex = 0.8) 
+Output: 
+ Sepal.Length Sepal.Width Petal.Length Petal.Width 
+Sepal.Length 1.0000000 -0.1175698 0.8717538 0.8179411 
+Sepal.Width -0.1175698 1.0000000 -0.4284401 -0.3661259 
+Petal.Length 0.8717538 -0.4284401 1.0000000 0.9628654 
+Petal.Width 0.8179411 -0.3661259 0.9628654 1.0000000 
+c) Program: 
+# Compare Sepal.Length across species using ANOVA 
+anova_model <- aov(Sepal.Length ~ Species, data = iris) 
+summary(anova_model) 
+Output: 
+ Df Sum Sq Mean Sq F value Pr(>F) 
+Species 2 63.21 31.606 119.3 <2e-16 *** 
+Residuals 147 38.96 0.265 
+--- 
+Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
