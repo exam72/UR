@@ -1,0 +1,91 @@
+Reading and Writing Different Types of Datasets 
+a) Reading different types of datasets (.txt, .csv) from web and disk and writing in file in specific disk 
+location. 
+b) Reading Excel dataset in R. 
+c) Reading XML dataset in R. 
+a) Program: 
+# Writing a sample .txt file 
+write.table(iris[1:5, ], file = "sample.txt", sep = "\t", row.names = FALSE) 
+# Reading .txt file 
+txt_data <- read.table("sample.txt", header = TRUE, sep = "\t") 
+print(txt_data) 
+Output: 
+ Sepal.Length Sepal.Width Petal.Length Petal.Width Species 
+1 5.1 3.5 1.4 0.2 setosa 
+2 4.9 3.0 1.4 0.2 setosa 
+3 4.7 3.2 1.3 0.2 setosa 
+4 4.6 3.1 1.5 0.2 setosa 
+5 5.0 3.6 1.4 0.2 setosa 
+# Writing a sample .csv file 
+write.csv(iris[1:5, ], file = "sample.csv", row.names = FALSE) 
+# Reading .csv file 
+csv_data <- read.csv("sample.csv") 
+print(csv_data) 
+Output: 
+ Sepal.Length Sepal.Width Petal.Length Petal.Width Species 
+1 5.1 3.5 1.4 0.2 setosa 
+2 4.9 3.0 1.4 0.2 setosa 
+3 4.7 3.2 1.3 0.2 setosa 
+4 4.6 3.1 1.5 0.2 setosa 
+5 5.0 3.6 1.4 0.2 setosa 
+b) Program: 
+# Install package if not already installed 
+# install.packages("readxl") 
+library(readxl) 
+# Assume an Excel file named "sample.xlsx" with iris data 
+# For demo, we first create one: 
+# (Requires openxlsx package to write) 
+# install.packages("openxlsx") 
+library(openxlsx) 
+write.xlsx(iris[1:5, ], "sample.xlsx") 
+# Read the Excel file 
+excel_data <- read_excel("sample.xlsx") 
+print(excel_data) 
+Output: 
+# First 5 rows of iris data 
+# A tibble: 5 × 5 
+ Sepal.Length Sepal.Width Petal.Length Petal.Width Species 
+ <dbl> <dbl> <dbl> <dbl> <chr> 
+1 5.1 3.5 1.4 0.2 setosa 
+2 4.9 3.0 1.4 0.2 setosa 
+3 4.7 3.2 1.3 0.2 setosa 
+4 4.6 3.1 1.5 0.2 setosa 
+5 5.0 3.6 1.4 0.2 setosa 
+c) Program: 
+# Install if not installed 
+# install.packages("xml2") 
+library(xml2) 
+# Create sample XML content 
+xml_content <- '<root> 
+ <flower> 
+ <Sepal.Length>5.1</Sepal.Length> 
+ <Sepal.Width>3.5</Sepal.Width> 
+ <Species>setosa</Species> 
+ </flower> 
+ <flower> 
+ <Sepal.Length>4.9</Sepal.Length> 
+ <Sepal.Width>3.0</Sepal.Width> 
+ <Species>setosa</Species> 
+ </flower> 
+</root>' 
+# Write XML file 
+writeLines(xml_content, "sample.xml") 
+# Read XML file 
+xml_file <- read_xml("sample.xml") 
+print(xml_file) 
+# Extract data 
+flowers <- xml_find_all(xml_file, "//flower") 
+for (f in flowers) { 
+ cat("Sepal.Length:", xml_text(xml_find_first(f, "Sepal.Length")), 
+ " Sepal.Width:", xml_text(xml_find_first(f, "Sepal.Width")), 
+ " Species:", xml_text(xml_find_first(f, "Species")), "\n") 
+} 
+Output: 
+{xml_document} 
+<root> 
+[1] <flower>\n <Sepal.Length>5.1</Sepal.Length>\n <Sepal.Width>3.5</Sepal.Width>\n 
+<Species>setosa</Species>\n</flower> 
+[2] <flower>\n <Sepal.Length>4.9</Sepal.Length>\n <Sepal.Width>3.0</Sepal.Width>\n 
+<Species>setosa</Species>\n</flower> 
+Sepal.Length: 5.1 Sepal.Width: 3.5 Species: setosa 
+Sepal.Length: 4.9 Sepal.Width: 3.0 Species: setosa 
