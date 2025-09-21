@@ -1,0 +1,87 @@
+Calculator Application: 
+a) Using with and without R objects on console. 
+b) Using mathematical functions on console. 
+c) Write an R script, to create R objects for calculator application and save in a specified location in 
+disk. 
+d) R Packages: tidyr, ggplot2, ggraph, glue. shiny. 
+a) Program: 
+# Without R objects 
+10 + 5 
+20 - 7 
+8 * 3 
+15 / 3 
+Output: 
+[1] 15 
+[1] 13 
+[1] 24 
+[1] 5 
+# Using R objects 
+x <- 25 
+y <- 5 
+sum <- x + y 
+diff <- x - y 
+prod <- x * y 
+div <- x / y 
+print(sum) 
+print(diff) 
+print(prod) 
+print(div) 
+Output: 
+[1] 30 
+[1] 20 
+[1] 125 
+[1] 5 
+b) Program:
+sqrt(16) # Square root 
+exp(2) # Exponential 
+log(10) # Natural log 
+log10(1000) # Log base 10 
+sin(pi/2) # Trigonometric function 
+abs(-45) # Absolute value 
+Output: 
+[1] 4 
+[1] 7.389056 
+[1] 2.302585 
+[1] 3 
+[1] 1 
+[1] 45 
+c) Program:
+# Calculator script 
+calculator <- function(a, b) { 
+ result <- list( 
+ Addition = a + b, 
+ Subtraction = a - b, 
+ Multiplication = a * b, 
+ Division = a / b 
+ ) 
+ return(result) 
+} 
+res <- calculator(20, 4) 
+print(res) 
+saveRDS(res, file = "calculator_output.rds") 
+read_res <- readRDS("calculator_output.rds") 
+print(read_res) 
+Output: 
+$Addition 
+[1] 24 
+$Subtraction 
+[1] 16 
+$Multiplication 
+[1] 80 
+$Division 
+[1] 5 
+$Addition 
+[1] 24 
+$Subtraction 
+[1] 16 
+$Multiplication 
+[1] 80 
+$Division 
+[1] 5 
+d) Program:
+# Load essential packages 
+library(tidyr) # Data cleaning & reshaping 
+library(ggplot2) # Data visualization 
+library(ggraph) # Graph visualization 
+library(glue) # String interpolation 
+library(shiny) # Web applications in R 
